@@ -78,10 +78,10 @@ async def on_interaction(inc: discord.Interaction):
             await inc.response.send_message(embed=embed, ephemeral=True)
             
             for channel in inc.guild.text_channels:
-                if channel.topic == inc.user.id:
+                if channel.topic and str(channel.topic) == str(inc.user.id):
                     embed = discord.Embed(
                         title=f"Error",
-                        description=f"You already have a ticket: {ch.mention}",
+                        description=f"You already have a ticket: {channel.mention}",
                         color=discord.Color.red()
                     )
 
