@@ -77,26 +77,27 @@ async def on_interaction(inc: discord.Interaction):
 
             await inc.response.send_message(embed=embed, ephemeral=True)
             
-            for channel in inc.guild.text_channels:
-                if channel.topic and str(channel.topic) == str(inc.user.id):
-                    embed = discord.Embed(
-                        title=f"Error",
-                        description=f"You already have a ticket: {channel.mention}",
-                        color=discord.Color.red()
-                    )
+            a = discord.utils.find(lambda channel: channel.topic == str(inc.user.id), inc.guild.text_channels)
+            
+            if a:
+                embed = discord.Embed(
+                    title=f"Error",
+                    description=f"You already have a ticket: {a.mention}",
+                    color=discord.Color.red()
+                )
 
-                    embed.set_author(
-                        name="kwmell",
-                        icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
-                    )
+                embed.set_author(
+                    name="kwmell",
+                    icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
+                )
 
-                    embed.set_footer(
-                        text="Made by kwmell",
-                        icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
-                    )
+                embed.set_footer(
+                    text="Made by kwmell",
+                    icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
+                )
 
-                    await inc.edit_original_response(embed=embed)
-                    return
+                await inc.edit_original_response(embed=embed)
+                return
                 
             category = discord.utils.get(inc.guild.categories, id=category_id)
             ticketaccess = inc.guild.get_role(ticket_access_id)
