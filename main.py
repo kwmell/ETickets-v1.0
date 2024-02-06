@@ -78,7 +78,7 @@ async def on_interaction(inc: discord.Interaction):
                     icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
                 )
 
-                await inc.response.send_message(embed=embed)
+                await inc.response.send_message(embed=embed, ephemeral=True)
                 return
                 
             category = discord.utils.get(inc.guild.categories, id=category_id)
@@ -110,7 +110,7 @@ async def on_interaction(inc: discord.Interaction):
                 icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
             )
 
-            await inc.response.send_message(embed=embed)
+            await inc.response.send_message(embed=embed, ephemeral=True)
 
             view = discord.ui.View()
 
