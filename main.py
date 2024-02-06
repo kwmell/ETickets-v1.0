@@ -59,24 +59,6 @@ async def tickets(ctx: commands.Context):
 async def on_interaction(inc: discord.Interaction):
     if inc.data["custom_id"] == "open_a_ticket":
         try:
-            embed = discord.Embed(
-                title=f"Wait...",
-                description=f"Wait some seconds please!",
-                color=discord.Color.red()
-            )
-
-            embed.set_author(
-                name="kwmell",
-                icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
-            )
-
-            embed.set_footer(
-                text="Made by kwmell",
-                icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
-            )
-
-            await inc.response.send_message(embed=embed, ephemeral=True)
-            
             a = discord.utils.find(lambda channel: channel.topic == str(inc.user.id), inc.guild.text_channels)
             
             if a:
@@ -96,7 +78,7 @@ async def on_interaction(inc: discord.Interaction):
                     icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
                 )
 
-                await inc.edit_original_response(embed=embed)
+                await inc.response.send_message(embed=embed)
                 return
                 
             category = discord.utils.get(inc.guild.categories, id=category_id)
@@ -128,9 +110,25 @@ async def on_interaction(inc: discord.Interaction):
                 icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
             )
 
-            await inc.edit_original_response(embed=embed)
+            await inc.response.send_message(embed=embed)
 
             view = discord.ui.View()
+
+            embed = discord.Embed(
+                title=f"Thank you for opening a ticket!",
+                description=f"Please wait till a staff assists you. Meanwhile, explain your problem!",
+                color=discord.Color.random()
+            )
+
+            embed.set_author(
+                name="kwmell",
+                icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
+            )
+
+            embed.set_footer(
+                text="Made by kwmell",
+                icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
+            )
 
             view.add_item(discord.ui.Button(label=f"Close", style=discord.ButtonStyle.danger, emoji="🔐", custom_id="close_a_ticket"))
             view.add_item(discord.ui.Button(label=f"Claim", style=discord.ButtonStyle.success, emoji="💕", custom_id="claim_a_ticket"))
