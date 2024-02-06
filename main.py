@@ -77,7 +77,7 @@ async def on_interaction(inc: discord.Interaction):
 
             await inc.response.send_message(embed=embed, ephemeral=True)
             
-            for channel in inc.guild.channels:
+            for channel in inc.guild.text_channels:
                 if channel.topic == inc.user.id:
                     embed = discord.Embed(
                         title=f"Error",
