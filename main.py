@@ -59,6 +59,45 @@ async def tickets(ctx: commands.Context):
 async def on_interaction(inc: discord.Interaction):
     if inc.data["custom_id"] == "open_a_ticket":
         try:
+            embed = discord.Embed(
+                title=f"Wait...",
+                description=f"Wait some seconds please!",
+                color=discord.Color.red()
+            )
+
+            embed.set_author(
+                name="kwmell",
+                icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
+            )
+
+            embed.set_footer(
+                text="Made by kwmell",
+                icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
+            )
+
+            await inc.response.send_message(embed=embed, ephemeral=True)
+            
+            for channel in inc.guild.channels:
+                if channel.topic == inc.user.id:
+                    embed = discord.Embed(
+                        title=f"Error",
+                        description=f"You already have a ticket: {ch.mention}",
+                        color=discord.Color.red()
+                    )
+
+                    embed.set_author(
+                        name="kwmell",
+                        icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
+                    )
+
+                    embed.set_footer(
+                        text="Made by kwmell",
+                        icon_url="https://cdn.discordapp.com/avatars/1171146705337593957/d414f0ce81e880e33568f07273cf4cbc.png?size=128"
+                    )
+
+                    await inc.response.edit_message(embed=embed, ephemeral=True)
+                    return
+                
             category = discord.utils.get(inc.guild.categories, id=category_id)
             ticketaccess = inc.guild.get_role(ticket_access_id)
 
@@ -74,7 +113,7 @@ async def on_interaction(inc: discord.Interaction):
 
             embed = discord.Embed(
                 title=f"Thank you for opening a ticket!",
-                description=f"Please wait till a staff responds to you. Meanwhile, start to type your problem!",
+                description=f"Channel created here: {ch.mention}!",
                 color=discord.Color.random()
             )
 
@@ -255,4 +294,4 @@ async def on_interaction(inc: discord.Interaction):
         except Exception as e:
             print(f"[ERROR] {e}.")
 
-client.run("PUT-HERE-YOUR-TOKEN")
+client.run("PUT-YOUR-TOKEN-HERE")
